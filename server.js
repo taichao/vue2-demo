@@ -3,7 +3,9 @@ const WebpackDevServer = require('webpack-dev-server')
 const webpackConfig = require("./webpack.config")
 const config = require('./config/')
 
+webpackConfig.entry.unshift("webpack-dev-server/client?http://localhost:3000/", "webpack/hot/dev-server");
 var compiler = Webpack(webpackConfig)
+
 var server = new WebpackDevServer(compiler, {
     publicPath: config.publicPath,
     stats: {
@@ -14,7 +16,8 @@ var server = new WebpackDevServer(compiler, {
             target: config.target,
             changeOrigin: true
         }
-    }
+    },
+    hot: true
 })
 
 server.listen(3000, (err) => {
